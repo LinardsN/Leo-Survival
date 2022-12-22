@@ -727,6 +727,7 @@ GameObject:
   - component: {fileID: 6563539540959535787}
   - component: {fileID: -4734846428898685904}
   - component: {fileID: 4564401913729528888}
+  - component: {fileID: 2230922278406978351}
   m_Layer: 0
   m_Name: Rabbit big
   m_TagString: Untagged
@@ -829,7 +830,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 269b8542246bb884e9a9e85d3d8b1d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInRange: 0
   ItemName: Rabbit
+--- !u!65 &2230922278406978351
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588090451174212}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.66, y: 2.71, z: 12.66}
+  m_Center: {x: 0, y: 1.45, z: 0}
 --- !u!1 &1593323770353162
 GameObject:
   m_ObjectHideFlags: 0

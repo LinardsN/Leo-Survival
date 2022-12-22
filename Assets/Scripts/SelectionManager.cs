@@ -7,35 +7,68 @@ using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
+
+    public static SelectionManager Instance { get; set; }
+
+    public bool onTarget;
  
     public GameObject interaction_Info_UI;
     Text interaction_text;
  
     private void Start()
     {
+        onTarget = false;
         interaction_text = interaction_Info_UI.GetComponent<Text>();
     }
- 
-    void Update()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+
+    private void Awake() {
+        if (Instance != null && Instance != this) {
+            Destroy(gameObject);
+        } 
+        else 
         {
-            var selectionTransform = hit.transform;
+            Instance = this;
+        }
+
+    }
+
+void Update()
+{
+    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    RaycastHit hit;
+    if (Physics.Raycast(ray, out hit))
+    {
+        var selectionTransform = hit.transform;
  
-            if (selectionTransform.GetComponent<InteractableObject>() && selectionTransform.GetComponent<InteractableObject>().playerInRange)
+        if (selectionTransform.GetComponent<InteractableObject>() && selectionTransform.GetComponent<InteractableObject>().playerInRange)
+        {
+            if (selectionTransform.GetComponent<PickableObject>())
             {
+                // Object has both InteractableObject and PickableObject scripts
+                onTarget = true;
                 interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
                 interaction_Info_UI.SetActive(true);
             }
-            else 
-            { 
-                interaction_Info_UI.SetActive(false);
+            else
+            {
+                // Object has InteractableObject script but not PickableObject script
+                onTarget = false;
+                interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
+                interaction_Info_UI.SetActive(true);
             }
- 
-        } else {
+        }
+        else 
+        { 
+            onTarget = false;
             interaction_Info_UI.SetActive(false);
         }
+ 
+ 
+    } else {
+        onTarget = false;
+        interaction_Info_UI.SetActive(false);
     }
+}
+
+
 }

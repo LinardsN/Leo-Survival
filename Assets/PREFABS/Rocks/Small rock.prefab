@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7603625110360474430}
   - component: {fileID: 7174250723588644757}
   - component: {fileID: 9213928695210659075}
+  - component: {fileID: -7668324734355277117}
   m_Layer: 0
   m_Name: Small rock
   m_TagString: Untagged
@@ -143,3 +144,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   ItemName: 
+--- !u!114 &-7668324734355277117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da91b12f5737bdd4f82478210d9b7cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
