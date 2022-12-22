@@ -24,7 +24,7 @@ public class SelectionManager : MonoBehaviour
         {
             var selectionTransform = hit.transform;
  
-            if (selectionTransform.GetComponent<InteractableObject>())
+            if (selectionTransform.GetComponent<InteractableObject>() && selectionTransform.GetComponent<InteractableObject>().playerInRange)
             {
                 interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
                 interaction_Info_UI.SetActive(true);
@@ -34,6 +34,8 @@ public class SelectionManager : MonoBehaviour
                 interaction_Info_UI.SetActive(false);
             }
  
+        } else {
+            interaction_Info_UI.SetActive(false);
         }
     }
 }
