@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
  
 public class InventorySystem : MonoBehaviour
 {
@@ -17,7 +18,10 @@ public class InventorySystem : MonoBehaviour
     public bool isOpen;
     // public bool isFull;
     public int inventorySize;
- 
+    
+    public GameObject pickupAlert;
+    public Text pickupName;
+    public Image pickupImage;
  
     private void Awake()
     {
@@ -77,7 +81,17 @@ public class InventorySystem : MonoBehaviour
             itemToAdd = Instantiate(Resources.Load<GameObject>(itemName), whatSlotToEquip.transform.position, whatSlotToEquip.transform.rotation);
             itemToAdd.transform.SetParent(whatSlotToEquip.transform);
             itemList.Add(itemName);
+            ReCalculateList();
+            CraftingSystem.Instance.RefreshNeededItems();
+            TriggerPickupPopUp(itemName, itemToAdd.GetComponent<Image>().sprite);
         
+    }
+
+    void TriggerPickupPopUp(string itemName, Sprite itemSprite) {
+        pickupAlert.SetActive(true);
+        pickupName.text = itemName;
+        pickupImage.sprite = itemSprite;
+
     }
 
     private GameObject FindNextEmptySlot() {
@@ -109,10 +123,12 @@ public class InventorySystem : MonoBehaviour
     var itemsToRemove = slotList
         .Where(s => s.transform.childCount > 0 && s.transform.GetChild(0).name == nameToRemove + "(Clone)")
         .Take(amountToRemove);
-        
+
     foreach (var item in itemsToRemove) {
         Destroy(item.transform.GetChild(0).gameObject);
     }
+    ReCalculateList();
+    CraftingSystem.Instance.RefreshNeededItems();
 }
 
     public void ReCalculateList() {
