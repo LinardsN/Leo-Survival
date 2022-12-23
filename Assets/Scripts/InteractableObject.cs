@@ -12,7 +12,7 @@ public class InteractableObject : MonoBehaviour
     }
 
     void Update() {
-    if (Input.GetKeyDown(KeyCode.Mouse0) && playerInRange && SelectionManager.Instance.onTarget && GetComponent<PickableObject>()) 
+    if (Input.GetKeyDown(KeyCode.Mouse0) && playerInRange && SelectionManager.Instance.onTarget && GetComponent<PickableObject>() && SelectionManager.Instance.selectedObject == gameObject) 
     {
         if (!InventorySystem.Instance.CheckIfFull()) {
             InventorySystem.Instance.AddToInventory(ItemName);

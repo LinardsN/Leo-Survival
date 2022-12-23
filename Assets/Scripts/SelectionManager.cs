@@ -11,6 +11,7 @@ public class SelectionManager : MonoBehaviour
     public static SelectionManager Instance { get; set; }
 
     public bool onTarget;
+    public GameObject selectedObject;
  
     public GameObject interaction_Info_UI;
     Text interaction_text;
@@ -39,13 +40,16 @@ void Update()
     if (Physics.Raycast(ray, out hit))
     {
         var selectionTransform = hit.transform;
+
+        InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
  
-        if (selectionTransform.GetComponent<InteractableObject>() && selectionTransform.GetComponent<InteractableObject>().playerInRange)
+        if (interactable && interactable.playerInRange)
         {
             if (selectionTransform.GetComponent<PickableObject>())
             {
                 // Object has both InteractableObject and PickableObject scripts
                 onTarget = true;
+                selectedObject = interactable.gameObject;
                 interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
                 interaction_Info_UI.SetActive(true);
             }

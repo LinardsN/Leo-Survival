@@ -27,20 +27,33 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
  
  
-    public void OnBeginDrag(PointerEventData eventData)
+public GameObject dragParent;
+
+public void OnBeginDrag(PointerEventData eventData)
 {
     Debug.Log("OnBeginDrag");
+
     canvasGroup.alpha = .6f;
     canvasGroup.blocksRaycasts = false;
     startPosition = transform.position;
     startParent = transform.parent;
 
-    // Create a new, empty game object to be the parent of the item being dragged
-    GameObject dragParent = new GameObject("Drag Parent");
-    dragParent.transform.SetParent(canvas.transform);
-    transform.SetParent(dragParent.transform);
+    // Check if the dragParent field has been set
+    if (dragParent == null)
+    {
+        // If it hasn't been set, create a new, empty game object to be the parent of the item being dragged
+        dragParent = new GameObject("Drag Parent");
+        dragParent.transform.SetParent(canvas.transform);
+    }
+
+    // Set the parent of the item being dragged to the dragParent game object, preserving its position in the world space
+    transform.SetParent(dragParent.transform, worldPositionStays: true);
     itemBeingDragged = gameObject;
 }
+
+
+
+
  
     public void OnDrag(PointerEventData eventData)
     {
