@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -105,19 +106,14 @@ public class InventorySystem : MonoBehaviour
     }
     
     public void RemoveItem(string nameToRemove, int amountToRemove) {
-        int counter = amountToRemove;
-
-        for (int i = 0; i < slotList.Count && counter > 0; i++) {
-    if (slotList[i].transform.childCount > 0) {
-        if (slotList[i].transform.GetChild(0).name == nameToRemove + "Clone") {
-            Destroy(slotList[i].transform.GetChild(0).gameObject);
-            counter--;  // decrement the counter after each successful removal
-        }
+    var itemsToRemove = slotList
+        .Where(s => s.transform.childCount > 0 && s.transform.GetChild(0).name == nameToRemove + "(Clone)")
+        .Take(amountToRemove);
+        
+    foreach (var item in itemsToRemove) {
+        Destroy(item.transform.GetChild(0).gameObject);
     }
 }
-
-
-    }
 
     public void ReCalculateList() {
         itemList.Clear();

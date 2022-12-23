@@ -55,23 +55,25 @@ public class CraftingSystem : MonoBehaviour
     }
 
     void CraftAnyItem(Blueprint blueprintToCraft) {
-        InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
-        // if (blueprintToCraft.numOfRequirements == 1) {
-        //     InventorySystem.Instance.RemoveItem(blueprintToCraft.Req1, blueprintToCraft.Req1amount);
+        Debug.Log("Crafting item: " + blueprintToCraft.itemName);
+    // Remove required items from the inventory
+    // if (blueprintToCraft.numOfRequirements == 1) {
+        // InventorySystem.Instance.RemoveItem(blueprintToCraft.Req1, blueprintToCraft.Req1amount);
+    // } else if (blueprintToCraft.numOfRequirements == 2) {
+        InventorySystem.Instance.RemoveItem(blueprintToCraft.Req1, blueprintToCraft.Req1amount);
+        InventorySystem.Instance.RemoveItem(blueprintToCraft.Req2, blueprintToCraft.Req2amount);
+    // }
 
-        // } else if (blueprintToCraft.numOfRequirements == 2) {
-        //    Debug.Log(blueprintToCraft.Req1);
-        //    Debug.Log(blueprintToCraft.Req1amount);
-        //    Debug.Log(blueprintToCraft.Req2);
-        //    Debug.Log(blueprintToCraft.Req2amount);
-           InventorySystem.Instance.RemoveItem(blueprintToCraft.Req1, blueprintToCraft.Req1amount);
-            // InventorySystem.Instance.RemoveItem(blueprintToCraft.Req2, blueprintToCraft.Req2amount);
-        // }
+    // Add crafted item to the inventory
+    InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
 
-        StartCoroutine(calculate());
+    // Recalculate the inventory list
+    StartCoroutine(calculate());
 
-        RefreshNeededItems();
-    }
+    // Refresh the needed items display
+    RefreshNeededItems();
+}
+
 
     public IEnumerator calculate() {
         yield return new WaitForSeconds(1f);
