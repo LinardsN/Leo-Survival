@@ -1639,7 +1639,7 @@ MonoBehaviour:
   nonSprintStaminaRegenRate: 3
   nonMovementStaminaRegenRate: 15
   maxStamina: 100
-  gravity: -19.62
+  gravity: -25.62
   jumpHeight: 3
   groundCheck: {fileID: 189225744}
   groundDistance: 0.4

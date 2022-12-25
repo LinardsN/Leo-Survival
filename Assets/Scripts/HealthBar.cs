@@ -10,12 +10,12 @@ public class HealthBar : MonoBehaviour
 
     public GameObject playerState;
 
-    private float currentHealth, maxHealth;
+    private float currentHealth,
+        maxHealth;
 
     void Awake()
     {
         slider = GetComponent<Slider>();
-        
     }
 
     void Update()

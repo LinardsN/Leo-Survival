@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public static PlayerState Instance {get; set;}
+    public static PlayerState Instance { get; set; }
 
     //---PLAYER HEALTH---
     public float currentHealth;
@@ -44,14 +44,17 @@ public class PlayerState : MonoBehaviour
         StartCoroutine(decreaseHydration());
     }
 
-    IEnumerator decreaseHydration() {
-        while(true) {
-            if(currentHydrationPercent != 0) {
+    IEnumerator decreaseHydration()
+    {
+        while (true)
+        {
+            if (currentHydrationPercent != 0)
+            {
                 currentHydrationPercent -= 1;
             }
             yield return new WaitForSeconds(20f);
         }
-    } 
+    }
 
     // Update is called once per frame
     void Update()
@@ -59,12 +62,14 @@ public class PlayerState : MonoBehaviour
         distanceTravelled += Vector3.Distance(playerBody.transform.position, lastPosition);
         lastPosition = playerBody.transform.position;
 
-        if (distanceTravelled >=10 && currentCalories != 0) {
+        if (distanceTravelled >= 10 && currentCalories != 0)
+        {
             distanceTravelled = 0;
             currentCalories -= 1;
         }
 
-        if (Input.GetKeyDown(KeyCode.N)) {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
             currentHealth -= 10;
         }
     }

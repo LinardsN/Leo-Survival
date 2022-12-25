@@ -11,7 +11,14 @@ public class Blueprint
     public string Req2;
     public int Req2amount;
 
-    public Blueprint(string itemName, int numOfRequirements, string Req1, int Req1amount, string Req2, int Req2amount)
+    public Blueprint(
+        string itemName,
+        int numOfRequirements,
+        string Req1,
+        int Req1amount,
+        string Req2,
+        int Req2amount
+    )
     {
         this.itemName = itemName;
         this.numOfRequirements = numOfRequirements;
@@ -21,4 +28,3 @@ public class Blueprint
         this.Req2amount = Req2amount;
     }
 }
-

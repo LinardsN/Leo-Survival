@@ -10,7 +10,8 @@ public class HydrationBar : MonoBehaviour
 
     public GameObject playerState;
 
-    private float currentHydration, maxHydration;
+    private float currentHydration,
+        maxHydration;
 
     void Awake()
     {
@@ -25,6 +26,6 @@ public class HydrationBar : MonoBehaviour
         float fillValue = currentHydration / maxHydration;
         slider.value = fillValue;
 
-        hydrationCounter.text = currentHydration + "%" ;
+        hydrationCounter.text = currentHydration + "%";
     }
 }

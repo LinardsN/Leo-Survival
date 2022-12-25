@@ -10,12 +10,12 @@ public class CaloriesBar : MonoBehaviour
 
     public GameObject playerState;
 
-    private float currentCalories, maxCalories;
+    private float currentCalories,
+        maxCalories;
 
     void Awake()
     {
         slider = GetComponent<Slider>();
-        
     }
 
     void Update()
