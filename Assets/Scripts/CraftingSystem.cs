@@ -8,6 +8,7 @@ public class CraftingSystem : MonoBehaviour
 
     public GameObject craftingScreenUI;
     public GameObject toolsScreenUI;
+    private bool isCrafting = false;
 
     public List<string> inventoryItemList = new List<string>();
 
@@ -50,34 +51,54 @@ public class CraftingSystem : MonoBehaviour
         axeReq2 = toolsScreenUI.transform.Find("Axe").transform.Find("Req2").GetComponent<Text>();
 
         craftAxeBTN = toolsScreenUI.transform.Find("Axe").transform.Find("Button").GetComponent<Button>();
-        craftAxeBTN.onClick.AddListener(delegate{CraftAnyItem(AxeBLP);});
+        craftAxeBTN.onClick.AddListener(delegate{
+            if (!isCrafting) {
+            CraftAnyItem(AxeBLP);
+            }
+        });
+
 
     }
 
     void CraftAnyItem(Blueprint blueprintToCraft) {
-        Debug.Log("Crafting item: " + blueprintToCraft.itemName);
+    Debug.Log("Crafting item: " + blueprintToCraft.itemName);
+
+    // Set the crafting flag to true
+    isCrafting = true;
+
     // Remove required items from the inventory
-    // if (blueprintToCraft.numOfRequirements == 1) {
-        // InventorySystem.Instance.RemoveItem(blueprintToCraft.Req1, blueprintToCraft.Req1amount);
-    // } else if (blueprintToCraft.numOfRequirements == 2) {
+    if (blueprintToCraft.numOfRequirements == 1) {
+        InventorySystem.Instance.RemoveItem(blueprintToCraft.Req1, blueprintToCraft.Req1amount);
+    } else if (blueprintToCraft.numOfRequirements == 2) {
         InventorySystem.Instance.RemoveItem(blueprintToCraft.Req1, blueprintToCraft.Req1amount);
         InventorySystem.Instance.RemoveItem(blueprintToCraft.Req2, blueprintToCraft.Req2amount);
-    // }
+    } else if (blueprintToCraft.numOfRequirements == 3) {
+
+    } else if (blueprintToCraft.numOfRequirements == 4) {
+
+    }
 
     // Add crafted item to the inventory
     InventorySystem.Instance.AddToInventory(blueprintToCraft.itemName);
 
     // Recalculate the inventory list
-    StartCoroutine(calculate());
+    StartCoroutine(calculate(0));
 
     // Refresh the needed items display
     RefreshNeededItems();
+
+    // Wait for a few seconds before setting the crafting flag to false
+    StartCoroutine(WaitForCrafting(2f));
+}
+
+private IEnumerator WaitForCrafting(float delay) {
+    yield return new WaitForSeconds(delay);
+    isCrafting = false;
 }
 
 
-    public IEnumerator calculate() {
-        yield return new WaitForSeconds(1f);
-
+    public IEnumerator calculate(float delay) {
+        yield return new WaitForSeconds(delay);
         InventorySystem.Instance.ReCalculateList();
     }
 
@@ -112,7 +133,7 @@ public class CraftingSystem : MonoBehaviour
             isOpen = false;
         }
     }
-    private void RefreshNeededItems() {
+    public void RefreshNeededItems() {
         int stone_count = 0;
         int stick_count = 0;
 

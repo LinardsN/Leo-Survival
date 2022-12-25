@@ -9,7 +9,8 @@ public class SelectionManager : MonoBehaviour
 {
 
     public static SelectionManager Instance { get; set; }
-
+    public Image centerDotIcon;
+    public Image handIcon;
     public bool onTarget;
     public GameObject selectedObject;
  
@@ -52,6 +53,13 @@ void Update()
                 selectedObject = interactable.gameObject;
                 interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
                 interaction_Info_UI.SetActive(true);
+                if (interactable.CompareTag("pickable")) {
+                    centerDotIcon.gameObject.SetActive(false);
+                    handIcon.gameObject.SetActive(true);
+                } else {
+                    handIcon.gameObject.SetActive(false);
+                    centerDotIcon.gameObject.SetActive(true);
+                }
             }
             else
             {
@@ -65,12 +73,16 @@ void Update()
         { 
             onTarget = false;
             interaction_Info_UI.SetActive(false);
+            handIcon.gameObject.SetActive(false);
+            centerDotIcon.gameObject.SetActive(true);
         }
  
  
     } else {
         onTarget = false;
         interaction_Info_UI.SetActive(false);
+        handIcon.gameObject.SetActive(false);
+        centerDotIcon.gameObject.SetActive(true);
     }
 }
 

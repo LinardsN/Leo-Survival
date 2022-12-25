@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
  
 public class InventorySystem : MonoBehaviour
 {
@@ -17,7 +18,9 @@ public class InventorySystem : MonoBehaviour
     public bool isOpen;
     // public bool isFull;
     public int inventorySize;
- 
+    public GameObject pickupAlert;
+    public Text pickupName;
+    public Image pickupImage;
  
     private void Awake()
     {
@@ -77,7 +80,15 @@ public class InventorySystem : MonoBehaviour
             itemToAdd = Instantiate(Resources.Load<GameObject>(itemName), whatSlotToEquip.transform.position, whatSlotToEquip.transform.rotation);
             itemToAdd.transform.SetParent(whatSlotToEquip.transform);
             itemList.Add(itemName);
-        
+            CraftingSystem.Instance.RefreshNeededItems();
+            TriggerPickupPopup(itemName, itemToAdd.GetComponent<Image>().sprite);
+    }
+
+    void TriggerPickupPopup(string itemName, Sprite itemToAdd) {
+        pickupAlert.SetActive(true);
+        pickupName.text = itemName;
+        pickupImage.sprite = itemToAdd;
+
     }
 
     private GameObject FindNextEmptySlot() {
@@ -113,6 +124,7 @@ public class InventorySystem : MonoBehaviour
     foreach (var item in itemsToRemove) {
         Destroy(item.transform.GetChild(0).gameObject);
     }
+    CraftingSystem.Instance.RefreshNeededItems();
 }
 
     public void ReCalculateList() {
