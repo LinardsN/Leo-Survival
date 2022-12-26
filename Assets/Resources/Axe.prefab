@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6640803519593789632}
   - component: {fileID: 4349293028283649100}
   - component: {fileID: 8629467603008337791}
+  - component: {fileID: 901628253282408925}
   m_Layer: 5
   m_Name: Axe
   m_TagString: Untagged
@@ -104,3 +105,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &901628253282408925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6640803519593789638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93f0142b5debd0c489875f11b8c16b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrashable: 0
+  thisName: Stone Axe
+  thisDescription: Simple stone Axe, better than nothing.
+  thisFunctionality: Used to chop down trees.
+  isConsumable: 0
+  healthEffect: 0
+  caloriesEffect: 0
+  hydrationEffect: 0

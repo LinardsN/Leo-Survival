@@ -22,14 +22,17 @@ public class InteractableObject : MonoBehaviour
             && SelectionManager.Instance.selectedObject == gameObject
         )
         {
-            if (!InventorySystem.Instance.CheckIfFull())
+            if (!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen)
             {
-                InventorySystem.Instance.AddToInventory(ItemName);
-                Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log("Inventory is full!");
+                if (!InventorySystem.Instance.CheckIfFull())
+                {
+                    InventorySystem.Instance.AddToInventory(ItemName);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Debug.Log("Inventory is full!");
+                }
             }
         }
     }

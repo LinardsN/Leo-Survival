@@ -6,6 +6,21 @@ public class PlayerState : MonoBehaviour
 {
     public static PlayerState Instance { get; set; }
 
+    public void setHealth(float newHealth)
+    {
+        currentHealth = newHealth;
+    }
+
+    public void setCalories(float newCalories)
+    {
+        currentCalories = newCalories;
+    }
+
+    public void setHydration(float newHydration)
+    {
+        currentHydrationPercent = newHydration;
+    }
+
     //---PLAYER HEALTH---
     public float currentHealth;
     public float maxHealth;
